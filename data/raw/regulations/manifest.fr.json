@@ -1,0 +1,47 @@
+{
+  "language": "fr",
+  "snapshots": {
+    "aiact": {
+      "key": "aiact",
+      "regulation": "AI Act",
+      "celex": "32024R1689",
+      "language": "fr",
+      "file": "aiact.fr.xhtml",
+      "request_url": "https://publications.europa.eu/resource/celex/32024R1689",
+      "resolved_url": "http://publications.europa.eu/resource/cellar/dc8116a1-3fe6-11ef-865a-01aa75ed71a1.0009.03/DOC_1",
+      "eurlex_url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32024R1689",
+      "content_type": "application/xhtml+xml;charset=UTF-8",
+      "fetched_at": "2026-10-01T22:14:29.119231Z",
+      "size_bytes": 1383324,
+      "sha256": "d8b1a7775f597dc8d49a2bdc91af0dca3bc12ac558b97504685f9534660bb44e"
+    },
+    "dora": {
+      "key": "dora",
+      "regulation": "DORA",
+      "celex": "32022R2554",
+      "language": "fr",
+      "file": "dora.fr.xhtml",
+      "request_url": "https://publications.europa.eu/resource/celex/32022R2554",
+      "resolved_url": "http://publications.europa.eu/resource/cellar/0caf473a-85bd-11ed-9887-01aa75ed71a1.0009.03/DOC_1",
+      "eurlex_url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32022R2554",
+      "content_type": "application/xhtml+xml;charset=UTF-8",
+      "fetched_at": "2026-10-01T22:14:27.872729Z",
+      "size_bytes": 807510,
+      "sha256": "b1ae836d79ba2831d3be11834b359eb5a0cf099cc3e478d1b2ef3198061e7c57"
+    },
+    "rgpd": {
+      "key": "rgpd",
+      "regulation": "RGPD",
+      "celex": "32016R0679",
+      "language": "fr",
+      "file": "rgpd.fr.xhtml",
+      "request_url": "https://publications.europa.eu/resource/celex/32016R0679",
+      "resolved_url": "http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1.0009.03/DOC_1",
+      "eurlex_url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32016R0679",
+      "content_type": "application/xhtml+xml;charset=UTF-8",
+      "fetched_at": "2026-10-01T22:37:25.158757Z",
+      "size_bytes": 876858,
+      "sha256": "27a2248cf0cf7c79a3ec7eae30b6e871817230d9f577632fed915181642144c2"
+    }
+  }
+}

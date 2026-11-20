@@ -1,0 +1,24 @@
+name: Integration tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    services:
+      qdrant:
+        image: qdrant/qdrant:v1.19.1
+        ports:
+          - 6333:6333
+    env:
+      VERILEGAL_QDRANT_URL: http://localhost:6333
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+        with:
+          enable-cache: true
+      - name: Install dependencies
+        run: uv sync --locked --all-extras
+      - name: Integration tests
+        run: uv run pytest -m integration

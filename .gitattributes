@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.pdf binary
+*.docx binary
+
+# Regulation snapshots must stay byte-identical to their manifest sha256
+data/raw/** -text

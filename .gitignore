@@ -1,0 +1,73 @@
+# Local documentation and AI assistant configuration
+/docs/
+/CLAUDE.md
+/AGENTS.md
+/.agents/
+/.claude/
+/.codex/
+/.cursor/
+/preview-README.html
+
+# Credentials and local environment settings
+.env
+.env.*
+!.env.example
+!.env.*.example
+.envrc
+/.aws/
+
+# Python-generated files and build artifacts
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+.direnv/
+
+# Tool caches and test outputs
+.cache/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.hypothesis/
+.tox/
+.nox/
+.ipynb_checkpoints/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+junit.xml
+:memory:.ses
+
+# Editor settings, previews and temporary files
+.vscode/
+.idea/
+.history/
+preview-*.html
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Generated corpus, model downloads and local vector storage
+/data/processed/
+/models/
+/model_cache/
+/qdrant_storage/
+
+# Generated reports; retain reviewed ingestion summaries
+/reports/*
+!/reports/.gitkeep
+!/reports/ingestion_sanity.*.md

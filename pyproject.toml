@@ -1,0 +1,118 @@
+[project]
+name = "verilegal"
+version = "0.1.0"
+description = "Obligation-driven hybrid RAG compliance auditor for EU/French regulations"
+readme = "README.md"
+authors = [
+    { name = "Veasna RA", email = "veasnara23@gmail.com" }
+]
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "beautifulsoup4>=4.15.0",
+    "docling>=2.50",
+    "fastapi>=0.142.2",
+    "fastembed>=0.8.1",
+    "fr-core-news-lg",
+    "httpx>=0.28.1",
+    "langfuse>=4.16.0",
+    "lxml>=5",
+    "mistralai>=3.0.0",
+    "numpy>=1.26.4",
+    "presidio-analyzer>=2.2.364",
+    "presidio-anonymizer>=2.2.364",
+    "pydantic>=2.13.5",
+    "pydantic-settings>=2.15.0",
+    "python-multipart>=0.0.32",
+    "pyyaml>=6.0.3",
+    "qdrant-client>=1.19.1",
+    "rapidfuzz>=3.14.6",
+    "rich>=13.9.4",
+    "sentence-transformers>=5",
+    "spacy>=3.8.16",
+    "sse-starlette>=3.5.0",
+    "structlog>=26.1.0",
+    "tenacity>=9.1.4",
+    "torch>=2.14.1",
+    "typer>=0.19,<0.27",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[project.scripts]
+verilegal = "verilegal.cli:app"
+
+[project.optional-dependencies]
+ui = [
+    "streamlit>=1.64.0",
+]
+eval = [
+    "ragas>=0.4.3",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.21,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.0",
+    "poethepoet>=0.48.0",
+    "pre-commit>=4.6.2",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.16.10",
+    "types-pyyaml>=6.0.12.20260906",
+]
+
+[tool.uv.sources]
+fr-core-news-lg = { url = "https://github.com/explosion/spacy-models/releases/download/fr_core_news_lg-3.8.0/fr_core_news_lg-3.8.0-py3-none-any.whl" }
+
+# ---- Tasks ----
+[tool.poe.tasks]
+fmt = "ruff format ."
+lint = "ruff check . --fix"
+type = "mypy src"
+test = "pytest -m \"not integration\" --cov=verilegal"
+test-all = "pytest"
+check = ["fmt", "lint", "type", "test"]
+# Non-mutating variant for CI: fails on unformatted or unfixed code instead of rewriting it
+_fmt-check = "ruff format --check ."
+_lint-check = "ruff check ."
+check-ci = ["_fmt-check", "_lint-check", "type", "test"]
+qdrant = "docker compose -f docker/docker-compose.yml up -d qdrant"
+serve = "verilegal serve"
+ui = "streamlit run src/verilegal/ui/app.py"
+eval = ["_eval-retrieval", "_eval-audit"]
+_eval-retrieval = "verilegal eval retrieval --ablation"
+_eval-audit = "verilegal eval audit"
+gpu = "python -c \"import torch; print('cuda available:', torch.cuda.is_available(), '| torch cuda:', torch.version.cuda, '|', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'cpu')\""
+setup-hooks = "pre-commit install"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF", "ASYNC"]
+# French legal text legitimately uses typographic apostrophes and dashes
+allowed-confusables = ["’", "–", "—"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = [
+  "integration: needs Qdrant, model downloads or external APIs",
+  "gpu: needs a CUDA device (skipped automatically when absent)",
+]
+addopts = "-ra --strict-markers"
